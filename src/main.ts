@@ -80,7 +80,6 @@ function displayNotes(notes: Note[]) {
         newNotes.innerHTML = `<h2 class="name">${note.username}</h2>
             <h3 class="title">${note.title}</h3>
             <p class="text">${note.note}</p>
-            <p class="id">${note.id}</p>
             <button class="deletebtn" id="deletebtn">Delete Note</button>`;
 
         notesArticle.appendChild(newNotes);
