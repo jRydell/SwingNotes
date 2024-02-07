@@ -3,11 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="./src/sass/main.scss">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+     
+      <form action="">
+         <input type="text" placeholder="Username" class="form__user">
+         <button class="form__btnShowNote">Get my Notes</button>
+         <input type="text" placeholder="Title" class="form__title">
+         <input type="text" placeholder="Note" class="form__note">
+         <button class="form__btn">Submit new Note</button>
+      </form>
+        
+      <article class="notes-article">
+        <h2>Saved Notes</h2>
+        <section class="user-notes"></section>        
+      </article>
+
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
