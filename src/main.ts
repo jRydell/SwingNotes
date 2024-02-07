@@ -19,8 +19,6 @@ function postNote() {
     let formUser = document.querySelector('.form__user') as HTMLInputElement;
     let formBtn = document.querySelector('.form__btn') as HTMLElement;
 
-    
-
     formBtn.addEventListener('click', async (e) => {
         e.preventDefault();
 
@@ -38,7 +36,7 @@ function postNote() {
             }
         });
 
-        await response.json();    
+        await response.json();
 
         getNotes(note.username);
     });
@@ -77,15 +75,19 @@ function displayNotes(notes: Note[]) {
         let newNotes = document.createElement('article');
 
         newNotes.setAttribute('note-id', note.id);
-        newNotes.innerHTML = `<h2 class="name">${note.username}</h2>
+        newNotes.innerHTML = 
+            `
+            <h2 class="name">${note.username}</h2>
             <h3 class="title">${note.title}</h3>
-            <p class="text">${note.note}</p>
-            <button class="deletebtn" id="deletebtn">Delete Note</button>`;
-
+            <p class="text">${note.note}</p>            
+            <button class="deleteBtn Btn">Delete Note</button>
+            <button class="updateBtn Btn">Update Note</button>
+            `
+            
         notesArticle.appendChild(newNotes);
     });
 
-    document.querySelectorAll('.deletebtn').forEach(deleteButton => {
+    document.querySelectorAll('.deleteBtn').forEach(deleteButton => {
         deleteButton.addEventListener('click', () => {
             const parentNode = deleteButton.parentNode as HTMLElement;
             const noteID = parentNode?.getAttribute('note-id');
@@ -93,8 +95,51 @@ function displayNotes(notes: Note[]) {
             parentNode?.remove();
         });
     });
-    
+
+    // Add event listener for update buttons
+    document.querySelectorAll('.updateBtn').forEach(updateButton => {
+        updateButton.addEventListener('click', () => {
+            const parentNode = updateButton.parentNode as HTMLElement;
+            const noteID = parentNode?.getAttribute('note-id');
+            // Prompt the user to input updated note content
+            const updatedNote = prompt('Enter updated note:');
+            // Call the updateNote function with the updated note content
+            updateNote(noteID, updatedNote);            
+        });
+    });
 }
+
+
+// Function to update a note
+async function updateNote(id: string | null, updatedNote: string | null) {
+    if (!id || !updatedNote) {
+        console.error('Missing parameters for updating note.');
+        return;
+    }
+
+    const URL = `${baseUrl}/api/notes/${id}`;
+    try {
+        let response = await fetch(URL, {
+            method: 'PUT', // Assuming PUT method is used for updating
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                note: updatedNote // Only include the updated note content
+            }),
+        });
+
+        const data = await response.json();
+        console.log(data); // Log the response if needed
+
+        // Refresh the notes after updating
+        getNotes(data.username);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 // Function to delete a note
 async function deleteNote(id: string | null) {
     const URL = `${baseUrl}/api/notes/${id}`;
