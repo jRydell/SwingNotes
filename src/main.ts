@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // Define an interface for the note object
 interface Note {
     id: string;
@@ -29,9 +31,7 @@ async function postNote() {
         } as Note;
 
         try {
-            await fetch(`${baseUrl}/api/notes`, {
-                method: 'POST',
-                body: JSON.stringify(note),
+            await axios.post(`${baseUrl}/api/notes`, note, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -57,15 +57,12 @@ async function getNotes(username: string) {
     const url = `${baseUrl}/api/notes/${username}`;
 
     try {
-        const response = await fetch(url, {
-            method: 'GET',
+        const response = await axios.get(url, {
             headers: {
                 'Content-Type': 'application/json'
             },
         });
-        const data = await response.json();
-
-        const notes: Note[] = data.notes;
+        const notes: Note[] = response.data.notes;
         displayNotes(notes);
 
     } catch (error) {
@@ -122,14 +119,13 @@ async function updateNote(id: string | null) {
 
     try {
         // Fetch the current note based on the id
-        const response = await fetch(`${baseUrl}/api/notes/${id}`, {
-            method: 'GET',
+        const response = await axios.get(`${baseUrl}/api/notes/${id}`, {
             headers: {
                 'Content-Type': 'application/json'
             },
         });
 
-        const originalNoteData = await response.json();
+        const originalNoteData = response.data;
         const username = originalNoteData.username;
         const currentNote = originalNoteData.note;
 
@@ -138,14 +134,10 @@ async function updateNote(id: string | null) {
 
         if (updatedNote !== null) {
             // Send PUT request with the updated content
-            await fetch(`${baseUrl}/api/notes/${id}`, {
-                method: 'PUT',
+            await axios.put(`${baseUrl}/api/notes/${id}`, { note: updatedNote }, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    note: updatedNote
-                }),
             });
 
             // Fetch and display updated notes after changes in the API
@@ -160,15 +152,11 @@ async function updateNote(id: string | null) {
 async function deleteNote(id: string | null) {
     const URL = `${baseUrl}/api/notes/${id}`;
     try {
-        const response = await fetch(URL, {
-            method: 'DELETE',
+        await axios.delete(URL, {
             headers: {
                 'Content-Type': 'application/json'
             },
         });
-
-        await response.json();
-
     } catch (error) {
         console.log(error);
     }
