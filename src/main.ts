@@ -1,17 +1,9 @@
 import axios from 'axios';
+import baseUrl from './API/apiConfig';
 import { Note } from './types/interfaces';
 
 
-// // Define an interface for the note object
-// interface Note {
-//     id: string;
-//     username: string;
-//     title: string;
-//     note: string;
-// }
 
-// Define the base URL for the API
-const baseUrl = 'https://o6wl0z7avc.execute-api.eu-north-1.amazonaws.com';
 
 // Select the button used to show notes
 const btnShowNote = document.querySelector('.form__btnShowNote') as HTMLElement;
