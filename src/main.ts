@@ -1,12 +1,14 @@
 import axios from 'axios';
+import { Note } from './types/interfaces';
 
-// Define an interface for the note object
-interface Note {
-    id: string;
-    username: string;
-    title: string;
-    note: string;
-}
+
+// // Define an interface for the note object
+// interface Note {
+//     id: string;
+//     username: string;
+//     title: string;
+//     note: string;
+// }
 
 // Define the base URL for the API
 const baseUrl = 'https://o6wl0z7avc.execute-api.eu-north-1.amazonaws.com';
