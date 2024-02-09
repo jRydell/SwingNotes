@@ -7,6 +7,7 @@ import { Note } from './types/interfaces';
 
 // Select the button used to show notes
 const btnShowNote = document.querySelector('.form__btnShowNote') as HTMLElement;
+let user: string='';
 
 // Function to handle posting a note
 async function postNote() {
@@ -23,6 +24,8 @@ async function postNote() {
             title: formTitle.value,
             note: formNote.value
         } as Note;
+
+        
 
         try {
             await axios.post(`${baseUrl}/api/notes`, note, {
@@ -59,6 +62,9 @@ async function getNotes(username: string) {
         const notes: Note[] = response.data.notes;
         displayNotes(notes);
 
+        user = username;
+        
+
     } catch (error) {
         console.log(error);
     }
@@ -75,6 +81,9 @@ function displayNotes(notes: Note[]) {
         const newNotes = document.createElement('article');
 
         newNotes.setAttribute('note-id', note.id);
+        newNotes.setAttribute('note-tile', note.title);
+        newNotes.setAttribute('note-note', note.note);
+        newNotes.setAttribute('note-username', note.username);
         newNotes.innerHTML =
             `<h2 class="name">${note.username}</h2>
             <h3 class="title">${note.title}</h3>
@@ -98,44 +107,61 @@ function displayNotes(notes: Note[]) {
         updateButton.addEventListener('click', () => {
             const parentNode = updateButton.parentNode as HTMLElement;
             const noteID = parentNode?.getAttribute('note-id');
+            const noteTitle = parentNode?.getAttribute('note-title');
+            const noteNewNote = parentNode?.getAttribute('note-note');
+            const noteUsername = parentNode?.getAttribute('note-username');
+
+            const note = {
+                username:noteUsername,
+                title: noteTitle,
+                note: noteNewNote,
+                id: noteID
+            } as Note;
+    
+        
+            
+
+
             // Call the updateNote function with the note ID
-            updateNote(noteID);
+            updateNote(note);
         });
     });
 }
 
 // Function to update a note
-async function updateNote(id: string | null) {
-    if (!id) {
+async function updateNote(data: Note | null) {
+    if (!data) {
         console.error('Missing parameters for updating note.');
         return;
     }
+    
 
     try {
         // Fetch the current note based on the id
-        const response = await axios.get(`${baseUrl}/api/notes/${id}`, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        });
-
-        const originalNoteData = response.data;
-        const username = originalNoteData.username;
-        const currentNote = originalNoteData.note;
+        // const response = await axios.get(`${baseUrl}/api/notes/${data.username}`, {
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        // });
+        // console.log(data.id);
+        // const originalNoteData = response.data.notes;
+        // const username = originalNoteData.username;
+        // const currentNote = originalNoteData.note;
 
         // Prompt the user to enter the updated note
-        const updatedNote = prompt('Enter updated note:', currentNote);
+        const updatedNote = prompt('Enter updated note:', data.note);
 
         if (updatedNote !== null) {
             // Send PUT request with the updated content
-            await axios.put(`${baseUrl}/api/notes/${id}`, { note: updatedNote }, {
+            await axios.put(`${baseUrl}/api/notes/${data.id}`, { note: updatedNote }, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
             });
 
             // Fetch and display updated notes after changes in the API
-            getNotes(username);
+            // console.log(note.username);
+            getNotes(data.username);
         }
     } catch (error) {
         console.log(error);
