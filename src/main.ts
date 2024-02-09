@@ -23,16 +23,18 @@ async function postNote() {
     } as Note;
 
     try {
-      await axios.post(`${baseUrl}/api/notes`, note, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post<ApiResponse>(`${baseUrl}/api/notes`, note);
 
-      // Immediately fetch and display notes after adding a new note
-      getNotes(note.username);
+      if (response.data.success) {
+        const notes: Note[] = response.data.notes;
+        displayNotes(notes);
+
+        user = note.username; // Use the username from the newly created note
+      } else {
+        console.error("Failed to fetch notes. Server response:", response.data);
+      }
     } catch (error) {
-      console.error("Failed to post note:", error);
+      console.log(error);
     }
   });
 
