@@ -6,4 +6,10 @@ export interface Note {
     note: string;
 }
 
+export interface ApiResponse {
+    success: boolean;
+    notes: Note[];
+}
+
+
 
