@@ -174,5 +174,5 @@ async function deleteNote(id: string | null) {
   }
 }
 
-// Call postNote to initialize the application
+// Call postNote to start application
 postNote();
