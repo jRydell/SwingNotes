@@ -47,7 +47,7 @@ async function postNote() {
 // Function to fetch notes from the API
 async function getNotes(username: string) {
   const url = `${baseUrl}/api/notes/${username}`;
-// Skicka in please use generic interface
+// Rätta till generic o ta borta gammal json skit
   try {
     const response = await axios.get(url, {
       headers: {
@@ -55,7 +55,7 @@ async function getNotes(username: string) {
       },
     });
     const notes: Note[] = response.data.notes;
-// Skicka in please use generic interface
+// Rätta till generic o ta borta gammal json skit
     displayNotes(notes);
 
     user = username;
@@ -116,7 +116,7 @@ function displayNotes(notes: Note[]) {
     });
   });
 }
-
+// Rätta till axios o ta borta gammal json skit
 // Function to update a note
 async function updateNote(data: Note | null) {
   if (!data) {
