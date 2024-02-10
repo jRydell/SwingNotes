@@ -23,18 +23,16 @@ async function postNote() {
     } as Note;
 
     try {
-      const response = await axios.post<ApiResponse>(`${baseUrl}/api/notes`, note);
+      await axios.post(`${baseUrl}/api/notes`, note, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-      if (response.data.success) {
-        const notes: Note[] = response.data.notes;
-        displayNotes(notes);
-
-        user = note.username; // Use the username from the newly created note
-      } else {
-        console.error("Failed to fetch notes. Server response:", response.data);
-      }
+      // Immediately fetch and display notes after adding a new note
+      getNotes(note.username);
     } catch (error) {
-      console.log(error);
+      console.error("Failed to post note:", error);
     }
   });
 
@@ -118,7 +116,7 @@ function displayNotes(notes: Note[]) {
     });
   });
 }
-// Rätta till axios o ta borta gammal json skit
+// RÃ¤tta till axios o ta borta gammal json skit
 // Function to update a note
 async function updateNote(data: Note | null) {
   if (!data) {
