@@ -1,4 +1,4 @@
-// Define an interface for the note object
+
 export interface Note {
     id: string;
     username: string;
@@ -7,9 +7,13 @@ export interface Note {
 }
 
 export interface ApiResponse {
-    success: boolean;
     notes: Note[];
+    status: number
+
 }
 
 
-
+export interface ApiError {
+    message: string
+    status: number
+  }
