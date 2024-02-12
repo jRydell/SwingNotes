@@ -1,0 +1,16 @@
+.notes-article {
+    background-color: $form-background;
+    padding: 20px;
+    border: 1px solid $form-border;
+    border-radius: 10px;
+    text-align: center;
+  
+    h2 {
+      color: $primary-color;
+      margin-bottom: 10px;
+    }
+  
+    .user-notes {
+      color: white;
+    }
+  }
