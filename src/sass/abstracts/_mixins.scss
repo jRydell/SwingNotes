@@ -1,0 +1,14 @@
+@mixin buttons {
+    margin:2rem 0.5rem;
+    background-color: $primary-color;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: darken($primary-color, 10%);
+    }
+}
