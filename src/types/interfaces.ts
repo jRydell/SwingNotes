@@ -5,8 +5,8 @@ export interface Note {
   note: string;
 }
 
-export interface ApiResponse<T> {
-  data: T[];
+export interface ApiResponse{
+  notes: Note[];
   status: number;
 }
 

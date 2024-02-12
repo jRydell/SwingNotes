@@ -48,7 +48,7 @@ async function getNotes(username: string) {
       console.error('Failed to get notes:', response.data.message);
     }
     
-    // user = username;
+    
   } catch (error) {
     console.log(error);
   }
