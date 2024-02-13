@@ -33,6 +33,7 @@ SwingNotes is a web-based notes application enabling users to create, view, upda
 ## Additional Information
 - **Dependencies:** 
 Node.js and npm installed with a compatible version.
+---
 
 Feel free to explore and enhance the functionality of SwingNotes!
 
