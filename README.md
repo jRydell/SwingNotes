@@ -19,7 +19,7 @@ SwingNotes is a web-based notes application enabling users to create, view, upda
 - **Vite:** Fast and efficient development experience.
 - **Sass:** Styling with variables, mixins, and modular structure.
 - **Axios:** Efficient HTTP requests for backend communication.
-- **TypeScript with Generics:** Modularized codebase for structured organization and enhanced code flexibility.
+- **TypeScript with Generics and Interfaces:** Modularized codebase for structured organization, enhanced code flexibility, and type safety.
 
 ## Usage
 1. **Creating a Note:**
