@@ -1,3 +1,4 @@
+// Interface for a Note object
 export interface Note {
   id: string;
   username: string;
@@ -5,12 +6,13 @@ export interface Note {
   note: string;
 }
 
-export interface ApiResponse{ 
+// Interface for a response containing an array of notes and a status code
+export interface ApiResponse { 
   notes: Note[];
   status: number;
-  
 }
 
+// Interface for an error response with a message and status code
 export interface ApiError <T, D> {
   message: T;
   status: D;

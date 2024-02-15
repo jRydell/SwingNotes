@@ -9,8 +9,10 @@
   </head>
   <body>
     <h1>SwingNotes</h1>
+      <!-- Main application container -->
     <div id="app">
-     
+
+      <!-- Form for user input -->
       <form action="">
          <input type="text" placeholder="Username" class="form__user">
          <button class="form__btnShowNote">Get my Notes</button>
@@ -18,13 +20,18 @@
          <input type="text" placeholder="Note" class="form__note">
          <button class="form__btn">Submit new Note</button>
       </form>
-        
+
+
+      <!-- Container for displaying saved notes -->  
       <article class="notes-article">
         <h2>Saved Notes</h2>
+         <!-- Section to display user's notes -->
         <section class="user-notes"></section>        
       </article>
+      
 
     </div>
+     
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
