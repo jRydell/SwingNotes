@@ -17,7 +17,7 @@ export async function getNotes(username: string) {
         if ('notes' in response.data) {
             // Extract notes from the response data
             const notes: Note[] = response.data.notes;
-
+            console.log(response);
             // Call the displayNotes function to render notes on the webpage
             displayNotes(notes);
         } else {
