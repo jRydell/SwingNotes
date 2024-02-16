@@ -13,6 +13,7 @@ export async function getNotes(username: string) {
       if ('notes' in response.data) {
         const notes: Note[] = response.data.notes;
         displayNotes(notes);
+        console.log("Retrieved and displayed notes",response);
       } else {
         console.error('Failed to get notes:', response.data.message);
       }

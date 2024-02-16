@@ -21,7 +21,7 @@ export async function postNote() {
   
       try {
         await axios.post(`${baseUrl}/api/notes`, note);
-  
+        console.log("Note Created");
         getNotes(note.username);
       } catch (error) {
         console.error("Failed to post note:", error);

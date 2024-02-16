@@ -8,6 +8,7 @@ export interface Note {
 export interface ApiResponse{ 
   notes: Note[];
   status: number;
+  success: boolean;
   
 }
 
